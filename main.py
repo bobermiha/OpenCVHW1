@@ -4,13 +4,13 @@ import typing as tp
 
 captured_video = cv2.VideoCapture("pens.mov")
 
-red_lower_bound = np.array([0, 50, 50], np.uint8)
+red_lower_bound = np.array([0, 150, 40], np.uint8)
 red_upper_bound = np.array([10, 255, 255], np.uint8)
 
-red1_lower_bound = np.array([170, 50, 50], np.uint8)
+red1_lower_bound = np.array([175, 150, 60], np.uint8)
 red1_upped_bound = np.array([180, 255, 255], np.uint8)
 
-blue_lower_bound = np.array([94, 0, 150], np.uint8)
+blue_lower_bound = np.array([94, 50, 150], np.uint8)
 blue_upper_bound = np.array([135, 255, 255], np.uint8)
 
 def track_pens_in_captured_video(
@@ -45,13 +45,12 @@ def track_pens_in_captured_video(
         for contour in contours:
             area = cv2.contourArea(contour)
 
-            if area > 6000:
-                cv2.drawContours(captured_frame, contour, -1, (0, 255, 0), 3)
+            if area > 400:
                 x, y, w, h = cv2.boundingRect(contour)
                 cv2.rectangle(captured_frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
-
         cv2.imshow("Captured Frame", captured_frame)
-        cv2.waitKey(25)
+        cv2.imshow("Mask", mask)
+        cv2.waitKey(28)
 
         if cv2.waitKey(1) == ord("q"):
             break
