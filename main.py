@@ -48,6 +48,7 @@ def track_pens_in_captured_video(
             if area > 400:
                 x, y, w, h = cv2.boundingRect(contour)
                 cv2.rectangle(captured_frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                cv2.rectangle(mask, (x, y), (x + w, y + h), (255, 0, 0), 3)
         cv2.imshow("Captured Frame", captured_frame)
         cv2.imshow("Mask", mask)
         cv2.waitKey(28)
